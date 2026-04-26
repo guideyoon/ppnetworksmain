@@ -725,3 +725,14 @@ footer {
     color: #991b1b;
     border: 1px solid #ef4444;
 }
+
+/* =========================================
+   Responsive Line Breaks
+   ========================================= */
+.mo-br { display: none; }
+.pc-br { display: block; }
+
+@media (max-width: 768px) {
+    .mo-br { display: block; }
+    .pc-br { display: none; }
+}
