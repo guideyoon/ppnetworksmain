@@ -46,12 +46,17 @@ export default async function handler(req, res) {
             </div>
         `;
 
-        const data = await resend.emails.send({
+        const { data, error } = await resend.emails.send({
             from: '피플네트웍스 홈페이지 <onboarding@resend.dev>', // Resend에서 발급받은 도메인으로 변경 권장
             to: [process.env.ADMIN_EMAIL || 'facecap@naver.com'],
             subject: `[상담신청] ${name} 님의 홈페이지 문의`,
             html: htmlContent,
         });
+
+        if (error) {
+            console.error('Resend API Error:', error);
+            return res.status(400).json({ success: false, error: error.message });
+        }
 
         res.status(200).json({ success: true, data });
     } catch (error) {
